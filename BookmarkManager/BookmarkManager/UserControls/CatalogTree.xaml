@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="BookmarkManager.UserControls.CatalogTree"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookmarkManager.UserControls"
+             xmlns:data ="clr-namespace:BookmarkManager.Libs.ViewModel"
+             xmlns:model ="clr-namespace:BookmarkManager.Libs.Model"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <TreeView x:Name="tv" ItemsSource="{Binding Path=RootCatalogs}" AllowDrop="True">
+        <TreeView.Resources>
+            <BitmapImage x:Key="OpenCatalog_Icon" UriSource="/assets/OpenCatalog_16x16.png"></BitmapImage>
+        </TreeView.Resources>
+        <TreeView.ItemContainerStyle>
+            <Style TargetType="{x:Type TreeViewItem}">
+                <EventSetter Event="PreviewMouseRightButtonDown" Handler="TreeViewItem_PreviewMouseRightButtonDown"></EventSetter>
+                <EventSetter Event="PreviewMouseLeftButtonDown" Handler="TreeViewItem_PreviewMouseLeftButtonDown"></EventSetter>
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                <EventSetter Event="MouseDown" Handler="TreeViewItem_MouseDown"></EventSetter>
+                <EventSetter Event="MouseMove" Handler="TreeViewItem_MouseMove"></EventSetter>
+                <EventSetter Event="DragEnter" Handler="TreeViewItem_DragEnter"></EventSetter>
+                <EventSetter Event="DragLeave" Handler="TreeViewItem_DragLeave"></EventSetter>
+                <EventSetter Event="LostFocus" Handler="TreeViewItem_LostFocus"></EventSetter>
+                <EventSetter Event="Drop" Handler="TreeViewItem_Drop"></EventSetter>
+            </Style>
+        </TreeView.ItemContainerStyle>
+        <TreeView.ContextMenu>            
+            <ContextMenu>
+                <ContextMenu.Resources>
+                    <Style TargetType="Image">
+                        <Setter Property="Width" Value="16"></Setter>
+                        <Setter Property="Height" Value="16"></Setter>
+                        <Setter Property="SnapsToDevicePixels" Value="True"></Setter>
+                    </Style>
+                </ContextMenu.Resources>
+                <MenuItem Header="增加目录" Name="mi_create" Click="mi_create_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/New_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="修改目录" Name="mi_modify" Click="mi_modify_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/Edit_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="删除目录" Name="mi_delete" Click="mi_delete_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/Delete_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="折叠所有" Name="mi_collapse_all" Click="mi_collapse_all_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/Left_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="展开所有" Name="mi_expand_all" Click="mi_expand_all_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/Right_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="向上移动" Name="mi_MoveUp" Click="mi_MoveUp_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/MoveUp_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Header="向下移动" Name="mi_MoveDown" Click="mi_MoveDown_Click">
+                    <MenuItem.Icon>
+                        <Image Source="/assets/MoveDown_16x16.png"></Image>
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </TreeView.ContextMenu>
+        <TreeView.ItemTemplate>
+            <HierarchicalDataTemplate DataType="{x:Type model:BookmarkModel}" ItemsSource="{Binding Path=Children}">        
+                <Border Padding="3" ToolTip="{Binding Order}">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/assets/catalog_16x16.png" x:Name="treeImg" Width="16" Height="16" VerticalAlignment="Center" SnapsToDevicePixels="True"/>
+                        <TextBlock Margin="3 0 0 0" VerticalAlignment="Center" Name="nodeName" Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <HierarchicalDataTemplate.Triggers>
+                    <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                        <Setter TargetName="treeImg" Property="Source" Value="{StaticResource OpenCatalog_Icon}"></Setter>
+                    </DataTrigger>
+                </HierarchicalDataTemplate.Triggers>
+            </HierarchicalDataTemplate>
+        </TreeView.ItemTemplate>
+    </TreeView>
+</UserControl>

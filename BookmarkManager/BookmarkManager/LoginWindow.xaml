@@ -1,0 +1,91 @@
+﻿<ui:FlatWindow x:Class="BookmarkManager.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookmarkManager"
+        xmlns:ui="clr-namespace:SiHan.WPF.UI;assembly=SiHan.WPF.UI"
+        xmlns:vm="clr-namespace:BookmarkManager.Libs.ViewModel"
+        xmlns:tools="clr-namespace:BookmarkManager.Libs.Tools"
+        mc:Ignorable="d"
+        FontSize="14"
+        Background="#094BAC"
+        Icon="/assets/app.ico"
+        Title="{x:Static tools:GlobalVariables.AppName }" Height="387" Width="613" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ContentRendered="FlatWindow_ContentRendered" DataContextChanged="FlatWindow_DataContextChanged">
+    <ui:FlatWindow.DataContext>
+        <vm:LoginWindowViewModel></vm:LoginWindowViewModel>
+    </ui:FlatWindow.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="40" Foreground="#FFADB7DA">登  录</TextBlock>
+        </Border>
+        <Border Grid.Row="1" Width="500" Padding="20" Background="#EDEFF1">
+            <Grid>
+                <Grid.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="Margin" Value="5"></Setter>
+                    </Style>
+                </Grid.Resources>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="4*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0" Grid.Column="0">
+                    <TextBlock Text="数据文件" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                </Border>
+                <Border Grid.Row="0" Grid.Column="1">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="32"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Padding="3" x:Name="tb_file" IsReadOnly="True" Background="#FFF59D" Text="{Binding FileName}"></TextBox>
+                        <ui:FlatButton Grid.Column="1" Background="Transparent" CornerRadius="0" BorderThickness="0" x:Name="btn_openFile" Command="{Binding OpenFile, Mode=OneWay}">
+                            <Image Source="/assets/Open_16x16.png"  Grid.Column="1" Width="16" Height="16" SnapsToDevicePixels="True"/>
+                        </ui:FlatButton>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="0" >
+                    <TextBlock Text="登录密码" HorizontalAlignment="Right" VerticalAlignment="Center"></TextBlock>
+                </Border>
+                <Border Grid.Row="1" Grid.Column="1">
+                    <PasswordBox  Padding="3" VerticalAlignment="Center" x:Name="tb_password"  tools:FocusExtension.IsFocused="{Binding IsFocused}"></PasswordBox>
+                </Border>
+                <ui:FlatButton IsDefault="True" Grid.Row="2" Grid.ColumnSpan="2" Height="40" Margin="0 20 0 0" Name="btn_login" Command="{Binding Login}" Content="登     录">
+                    <ui:FlatButton.Style>
+                        <Style TargetType="{x:Type ui:FlatButton}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsWait}" Value="True">
+                                    <Setter Property="IsEnabled" Value="False"></Setter>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsWait}" Value="False">
+                                    <Setter Property="IsEnabled" Value="True"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ui:FlatButton.Style>
+                </ui:FlatButton>
+                <Grid  Grid.Row="3" Grid.ColumnSpan="2"  Margin="0 20 0 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox FontSize="12" Foreground="#0D47A1" IsChecked="{Binding IsRememberFile}">记住文件名</CheckBox>
+                    <TextBlock Grid.Column="1" HorizontalAlignment="Right" FontSize="12">
+                        <Hyperlink Command="{Binding CreateFile}">创建新的数据文件</Hyperlink>
+                    </TextBlock>
+                </Grid>                
+            </Grid>
+        </Border>
+    </Grid>
+</ui:FlatWindow>

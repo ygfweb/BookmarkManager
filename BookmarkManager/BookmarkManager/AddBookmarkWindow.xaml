@@ -1,0 +1,91 @@
+﻿<ui:FlatWindow x:Class="BookmarkManager.AddBookmarkWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookmarkManager"
+        xmlns:ui ="clr-namespace:SiHan.WPF.UI;assembly=SiHan.WPF.UI"
+        xmlns:model="clr-namespace:BookmarkManager.Libs.Model"
+        mc:Ignorable="d"
+        FontSize="14"
+        Background="#094BAC"
+        Loaded="FlatWindow_Loaded"
+        Activated="FlatWindow_Activated"
+        ContentRendered="FlatWindow_ContentRendered"
+        Title="增加书签" Height="300" Width="620" ShowInTaskbar="False" ResizeMode="NoResize">
+    <!--<ui:FlatWindow.DataContext>
+        <model:BookmarkModel></model:BookmarkModel>
+    </ui:FlatWindow.DataContext>-->
+    <StackPanel>
+        <ProgressBar Height="5" Visibility="Hidden" x:Name="progressBar" IsIndeterminate="True"></ProgressBar>
+        <Border Background="White" Margin="10" Padding="20">
+            <Border.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                    <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+                </Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Margin" Value="3"></Setter>
+                    <Setter Property="Padding" Value="3"></Setter>
+                </Style>
+            </Border.Resources>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="网站URL："></TextBlock>
+                <Border  Grid.Row="0" Grid.Column="1" Padding="5">
+                    <TextBox x:Name="tb_url" Text="{Binding Url, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </Border>
+               
+                <TextBlock Text="网站标题：" Grid.Row="1" Grid.Column="0"></TextBlock>
+                <Border Grid.Row="1" Grid.Column="1" Padding="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" x:Name="tb_title" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"></TextBox>
+                        <ui:FlatButton Grid.Column="1" SnapsToDevicePixels="True" Background="Transparent" ToolTip="自动生成" CornerRadius="0" VerticalAlignment="Center" BorderThickness="0" Name="btn_auto" Click="btn_auto_Click">
+                            <Image Source="/assets/Hyperlink.png" Width="16" Height="16" SnapsToDevicePixels="True"/>
+                        </ui:FlatButton>
+                    </Grid>
+                </Border>
+
+                <Border  Grid.Row="2" Grid.Column="1" Padding="3">
+                    <TextBlock Text="若标题为空，则自动获取" FontSize="12" HorizontalAlignment="Left" Foreground="#E53935"></TextBlock>
+                </Border>
+                
+                <TextBlock Text="备       注：" Grid.Row="3" Grid.Column="0"></TextBlock>
+                <Border  Grid.Row="3" Grid.Column="1" Padding="5">
+                    <TextBox x:Name="tb_memo" Text="{Binding Memo, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                </Border>              
+                <Border Padding="0 20 0 0" Grid.Row="4" Grid.Column="1">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="110"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <CheckBox HorizontalAlignment="Left" VerticalAlignment="Center" Name="cb_IsMark" IsChecked="{Binding IsMark}" Margin="0 0 20 0">是否高亮</CheckBox>
+                        <CheckBox Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Name="cb_NotAllowNet">禁止网络获取</CheckBox>                        
+                        <ui:FlatButton Grid.Column="2" CornerRadius="0" Margin="0 0 10 0" IsDefault="True" Click="FlatButton_Click" Name="btn_save">确 定</ui:FlatButton>
+                        <ui:FlatButton Grid.Column="3" Grid.Row="0" CornerRadius="0" IsCancel="True">取   消</ui:FlatButton>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </StackPanel>  
+</ui:FlatWindow>

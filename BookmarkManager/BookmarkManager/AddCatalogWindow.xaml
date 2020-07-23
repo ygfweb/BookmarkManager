@@ -1,0 +1,50 @@
+﻿<ui:FlatWindow x:Class="BookmarkManager.AddCatalogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookmarkManager"
+        xmlns:ui="clr-namespace:SiHan.WPF.UI;assembly=SiHan.WPF.UI"
+        mc:Ignorable="d"
+        Background="#094BAC"
+        FontSize="14"
+        Height="255" Width="515.094"
+        Loaded="FlatWindow_Loaded"
+        Title="增加目录" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ContentRendered="FlatWindow_ContentRendered" ShowInTaskbar="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Background="White" Margin="5" Padding="20" BorderBrush="#4FC3F7" BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="目录名称：" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 0 10 0"></TextBlock>
+                <TextBox Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Padding="3" x:Name="tb_name"></TextBox>
+                <TextBlock Text="父 目 录："  VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0 10 10 0" Grid.Row="1"></TextBlock>
+                <TextBox Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Padding="3" Margin="0 10 0 0" IsReadOnly="True" Background="#FFF59D"  x:Name="tb_parent"></TextBox>
+                <TextBlock Text="目录顺序：" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"  Margin="0 0 10 0"></TextBlock>
+                <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Padding="3" x:Name="tb_order" Text="0"></TextBox>
+                <Grid  Margin="0 20 0 0" Grid.Row="3" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                        <ColumnDefinition Width="auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ui:FlatButton Width="100" Height="35"  VerticalAlignment="Center" Grid.Column="1" IsDefault="True" x:Name="save" Click="save_Click">保 存</ui:FlatButton>
+                    <ui:FlatButton Width="100" Height="35" VerticalAlignment="Center" Margin="10 0 20 0" Grid.Column="2" IsCancel="True">取 消</ui:FlatButton>
+                </Grid>
+            </Grid>
+        </Border>
+        <ProgressBar Grid.Row="1" Height="5" VerticalAlignment="Bottom" Visibility="Hidden" IsIndeterminate="True" x:Name="pb"></ProgressBar>
+    </Grid>
+</ui:FlatWindow>
